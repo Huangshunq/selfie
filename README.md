@@ -16,3 +16,12 @@
 
 * 获取列表相关
   * GET /list 获取文件列表
+* 上传文件相关
+  * POST /file 上传一个文件
+  * POST /files 上传多个文件
+
+## 3.历史修改
+
+* v1.1.0
+  * 使用 koa-body 代替 koa-bodyparser [参考博文](http://www.ptbird.cn/koa-body.html)
+  * 新添加上传文件相关功能

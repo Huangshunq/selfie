@@ -57,5 +57,5 @@ async function getAll() {
 };
 
 module.exports = {
-    get, getAll
+  get, getAll
 };

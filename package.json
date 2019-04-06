@@ -1,6 +1,6 @@
 {
   "name": "selfie-backend",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "app.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development node app.js",
@@ -12,7 +12,7 @@
   "dependencies": {
     "bunyan": "^1.8.12",
     "koa": "^2.7.0",
-    "koa-bodyparser": "^4.2.1",
+    "koa-body": "^4.1.0",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "xss": "^1.0.6"

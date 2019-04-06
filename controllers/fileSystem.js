@@ -1,8 +1,9 @@
 /*
-* 读取文件列表相关
+* 上传文件与读取文件列表相关
 * GET /list 读取文件列表
 */
 const fileList = require('../models/fileList');
+const fileUploader = require('../models/fileUploader');
 
 function getCurrentPageList(list, currentPage, pageSize) {
   if (currentPage < 1 || pageSize < 1) {
@@ -71,6 +72,38 @@ const getListFn = async (ctx, next) => {
   await next();
 };
 
+const uploadFileFn = async (ctx, next) => {
+  // 上传单个文件
+  const file = ctx.request.files.file; // 获取上传文件
+  if (file.size === 0) {
+    ctx.state.error({ message: 'no file' });
+  } else {
+    try {
+      await fileUploader.save(file)
+                        .then(() => {
+                          ctx.state.success({ message: 'successful' });
+                        });
+    } catch (err) {
+      ctx.state.error({ message: err.message });
+    }
+  }
+  await next();
+};
+
+const uploadFilesFn = async (ctx, next) => {
+  // 上传多个文件
+  const files = ctx.request.files.file; // 获取上传文件
+  try {
+    await fileUploader.saveFiles(files)
+                      .then(() => {
+                        ctx.state.success({ message: 'successful' });
+                      })
+  } catch (err) {
+    ctx.state.error({ message: err.message });
+  }
+  await next();
+};
+
 module.exports = {
-  getListFn
+  getListFn, uploadFileFn, uploadFilesFn
 };
