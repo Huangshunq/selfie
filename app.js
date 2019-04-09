@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(logger());
 
   app.listen(8081, '192.168.3.15', () => {
-      console.log('listening on port 8081......');
+      console.log('listening on 192.168.3.15:8081......');
   });
 
   module.exports = app;

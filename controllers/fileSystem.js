@@ -3,7 +3,8 @@
 * GET /list 读取文件列表
 */
 const fileList = require('../models/fileList');
-const fileUploader = require('../models/fileUploader');
+const videoUtils = require('../models/videoUtils');
+// const fileUploader = require('../models/fileUploader');
 
 function getCurrentPageList(list, currentPage, pageSize) {
   if (currentPage < 1 || pageSize < 1) {
@@ -79,10 +80,12 @@ const uploadFileFn = async (ctx, next) => {
     ctx.state.error({ message: 'no file' });
   } else {
     try {
-      await fileUploader.save(file)
-                        .then(() => {
-                          ctx.state.success({ message: 'successful' });
-                        });
+      const filename = videoUtils.getNameByDate(file.type);
+      const videoPath = await videoUtils.addImageWatermark(file.path, filename);
+      await videoUtils.takeThumbnail(videoPath);
+      ctx.state.success({ message: 'successful' });
+      // await fileUploader.save(file.path, file.type);
+      // ctx.state.success({ message: 'successful' });
     } catch (err) {
       ctx.state.error({ message: err.message });
     }
@@ -94,10 +97,8 @@ const uploadFilesFn = async (ctx, next) => {
   // 上传多个文件
   const files = ctx.request.files.file; // 获取上传文件
   try {
-    await fileUploader.saveFiles(files)
-                      .then(() => {
-                        ctx.state.success({ message: 'successful' });
-                      })
+    await fileUploader.saveFiles(files);
+    ctx.state.success({ message: 'successful' });
   } catch (err) {
     ctx.state.error({ message: err.message });
   }

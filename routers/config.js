@@ -5,5 +5,5 @@ module.exports = {
   'GET /list'           : getListFn,
 // 上传文件相关
   'POST /file'          : uploadFileFn,
-  'POST /files'         : uploadFilesFn
+  // 'POST /files'         : uploadFilesFn
 };

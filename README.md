@@ -5,7 +5,7 @@
 * controllers: 处理请求的函数
 * lib：处理器函数库
 * middleware：中间件
-* models：返回数据的模块
+* models：处理或返回数据的模块
 * public：静态目录
 * router：路由器
 * app.js：入口文件
@@ -18,10 +18,18 @@
   * GET /list 获取文件列表
 * 上传文件相关
   * POST /file 上传一个文件
-  * POST /files 上传多个文件
+  <!-- * POST /files 上传多个文件 -->
 
-## 3.历史修改
+## 3.部署
 
+```shell
+sudo ./deploy.sh
+```
+
+## 4.历史修改
+
+* v1.2.0
+  * 添加视频处理工具，修改文件处理逻辑。
 * v1.1.0
-  * 使用 koa-body 代替 koa-bodyparser [参考博文](http://www.ptbird.cn/koa-body.html)
-  * 新添加上传文件相关功能
+  * 使用 koa-body 代替 koa-bodyparser （[参考博文](http://www.ptbird.cn/koa-body.html)）。
+  * 添加上传文件相关功能。
