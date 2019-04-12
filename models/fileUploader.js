@@ -1,13 +1,13 @@
 const fs = require('fs');
 const path = require('path');
-const { publicPath, uploadDir } = require('../defaultConfig');
+const { publicPath, videoDir } = require('../config');
 const getNameByDate = require('./videoUtils').getNameByDate;
 
 function save(filePath, fileType) {
   // 创建可读流
   const reader = fs.createReadStream(filePath);
   const filename = getNameByDate(fileType);
-  const outputFilePath = path.join(publicPath, uploadDir, filename);
+  const outputFilePath = path.join(publicPath, videoDir, filename);
   // 创建可写流
   const upStream = fs.createWriteStream(outputFilePath);
 

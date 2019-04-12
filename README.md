@@ -7,7 +7,7 @@
 * middleware：中间件
 * models：处理或返回数据的模块
 * public：静态目录
-* router：路由器
+* routers：路由器
 * app.js：入口文件
 
 <!-- logs：输出日志 -->

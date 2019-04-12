@@ -3,9 +3,9 @@ const path = require('path');
 const {
   watermarkPath,
   publicPath,
-  uploadDir,
+  videoDir,
   imageDir
-} = require('../defaultConfig');
+} = require('../config');
 
 function format(dateObj, fmt) { 
   var o = { 
@@ -53,14 +53,14 @@ function getNameByDate(fileType) {
       filename = filename + '.mp4';
       break;
   }
-  let now = new Date();
-  now.setTime(filename.substring(0, filename.indexOf('.')));
-  console.log(now, format(now, 'yyyy-MM-dd hh:mm:ss'));
+  // let now = new Date();
+  // now.setTime(filename.substring(0, filename.indexOf('.')));
+  // console.log(now, format(now, 'yyyy-MM-dd hh:mm:ss'));
   return filename;
 }
 
 function takeThumbnail(filePath) {
-  const outputPath = path.join(publicPath, imageDir);
+  const imageDirPath = path.join(publicPath, imageDir);
   return new Promise((resolve, reject) => {
     ffmpeg(filePath)
       // .on('filenames', function(filenames) {
@@ -68,7 +68,7 @@ function takeThumbnail(filePath) {
       // })
       .on('end', function(stdout, stderr) {
         // console.log('takeThumbnail: Processing finished !');
-        resolve(outputPath);
+        resolve(imageDirPath);
       })
       .on('error', function(err, stdout, stderr) {
         // console.log('takeThumbnail: An error occurred: ' + err.message);
@@ -78,12 +78,12 @@ function takeThumbnail(filePath) {
         filename: '%b',
         count: 1,
         timemarks: [ '0' ],
-      }, outputPath);
+      }, imageDirPath);
   });
 }
 
 function addTextWatermark(filePath, filename, text = 'hello world') {
-  const outputPath = path.join(publicPath, uploadDir, filename);
+  const videoPath = path.join(publicPath, videoDir, filename);
   return new Promise((resolve, reject) => {
     ffmpeg(filePath)
       .outputOptions(
@@ -95,18 +95,18 @@ function addTextWatermark(filePath, filename, text = 'hello world') {
       // setup event handlers
       .on('end', function(stdout, stderr) {
         // console.log('addTextWatermark: Processing finished !');
-        resolve(outputPath);
+        resolve(videoPath);
       })
       .on('error', function(err, stdout, stderr) {
         // console.log('addTextWatermark: An error occurred: ' + err.message);
         reject({ err, stdout, stderr });
       })
-      .save(outputPath);
+      .save(videoPath);
   });
 }
 
 function addImageWatermark(filePath, filename, imagePath = watermarkPath) {
-  const outputPath = path.join(publicPath, uploadDir, filename);
+  const videoPath = path.join(publicPath, videoDir, filename);
   return new Promise((resolve, reject) => {
     ffmpeg(filePath)
       .outputOptions(
@@ -118,13 +118,13 @@ function addImageWatermark(filePath, filename, imagePath = watermarkPath) {
       // setup event handlers
       .on('end', function(stdout, stderr) {
         // console.log('addImageWatermark: Processing finished !');
-        resolve(outputPath);
+        resolve(videoPath);
       })
       .on('error', function(err, stdout, stderr) {
         // console.log('addImageWatermark: An error occurred: ' + stderr);
         reject({ err, stdout, stderr });
       })
-      .save(outputPath);
+      .save(videoPath);
   })
 }
 

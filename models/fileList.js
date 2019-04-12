@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const publicPath = require('../defaultConfig').publicPath;
+const publicPath = require('../config').publicPath;
 
 const promisify = function (nodeFunc) {
   return function(...args) {

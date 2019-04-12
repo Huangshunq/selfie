@@ -18,10 +18,10 @@ const getListFn = async (ctx, next) => {
   let resData = {}, tempData = {};
 
   // 未指定每页显示的数据 pageSize，
-  // 则设置后台数据总数 count 为 pageSize，
-  // 并设置当前页为 1。
+  // 则设置 pageSize 为 10，
+  // 并设置当前页 currentPage 为 1。
   if (!pageSize) {
-    resData.pageSize = resData.count;
+    resData.pageSize = 10;
     resData.currentPage = 1;
   } else {
   // 指定了 pageSize 则设置 pageSize。
@@ -85,7 +85,6 @@ const uploadFileFn = async (ctx, next) => {
       await videoUtils.takeThumbnail(videoPath);
       ctx.state.success({ message: 'successful' });
       // await fileUploader.save(file.path, file.type);
-      // ctx.state.success({ message: 'successful' });
     } catch (err) {
       ctx.state.error({ message: err.message });
     }

@@ -5,7 +5,7 @@ const Koa = require('koa'),
       binding = require('./middleware/binding'),
       filter = require('./middleware/filter'),
       route = require('./routers'),
-      publicPath = require('./defaultConfig').publicPath;
+      publicPath = require('./config').publicPath;
 
 app.use(koaBody({
   multipart: true,

@@ -10,6 +10,6 @@ module.exports = {
                   ? './watermark/img.png'
                   : path.resolve('./watermark/img.png'),
   publicPath: path.resolve('./public'),
-  uploadDir: 'videos',
+  videoDir: 'videos',
   imageDir: 'images'
 };
